@@ -30,10 +30,10 @@ app.get("/api/posts/:year/:month", (req, res) => {
 
 app.post("/api/courses", (req, res) => {
   const course = {
-    id: course.length + 1,
+    id: courses.length + 1,
     name: req.body.name
   };
-  course.push(course);
+  courses.push(course);
   res.send(course);
 });
 
