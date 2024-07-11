@@ -1,0 +1,26 @@
+{
+  "name": "node-and-express-js-rest-api",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Node and express.js REST API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "rest",
+    "api",
+    "web server",
+    "router",
+    "http request"
+  ],
+  "author": "Vaidas Makštutis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
