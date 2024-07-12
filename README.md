@@ -1,1 +1,1 @@
-# node-and-express-js-rest-api
+# How to build a REST API with Node & Express.js
