@@ -30,14 +30,9 @@ app.get("/api/posts/:year/:month", (req, res) => {
 });
 
 app.post("/api/courses", (req, res) => {
-  const schema = {
-    name: Joi.string().min(3).required()
-  };
-
-  const inputValidation = Joi.validate(req.body, schema);
-
-  if (inputValidation.error) {
-    res.status(400).send(inputValidation.error.details[0].message);
+  const { error } = inputValidation(req.body);
+  if (error) {
+    res.status(400).send(error.details[0].message);
     return;
   }
 
@@ -48,5 +43,28 @@ app.post("/api/courses", (req, res) => {
   courses.push(course);
   res.send(course);
 });
+
+app.put("/api/courses/:id", (req, res) => {
+  const course = courses.find(c => c.id === parseInt(req.params.id));
+  if (!course) res.status(404).send("The course with the given ID was not found!");
+
+  const { error } = inputValidation(req.body);
+  if (error) {
+    res.status(400).send(error.details[0].message);
+    return;
+  }
+
+  course.name = req.body.name;
+  res.status(200).send("Course has been updated successfully");
+  res.send(course);
+});
+
+function inputValidation(course) {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  return Joi.validate(course, schema);
+}
 
 app.listen(PORT, () => console.log(`Listening on the port: ${PORT}`));
