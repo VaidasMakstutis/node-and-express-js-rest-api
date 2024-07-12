@@ -1,4 +1,5 @@
 import express from "express";
+import Joi from "joi";
 import { PORT } from "./config.js";
 
 const app = express();
@@ -29,6 +30,17 @@ app.get("/api/posts/:year/:month", (req, res) => {
 });
 
 app.post("/api/courses", (req, res) => {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  const inputValidation = Joi.validate(req.body, schema);
+
+  if (inputValidation.error) {
+    res.status(400).send(inputValidation.error.details[0].message);
+    return;
+  }
+
   const course = {
     id: courses.length + 1,
     name: req.body.name
